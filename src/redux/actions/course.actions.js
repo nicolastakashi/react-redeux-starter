@@ -8,15 +8,41 @@ export function loadCoursesSuccess(courses) {
   };
 }
 
+export function createCourseSuccess(course) {
+  return {
+    type: actionTypes.CREATE_COURSE_SUCCESS,
+    course
+  };
+}
+
+export function updateCourseSuccess(course) {
+  return {
+    type: actionTypes.UPDATE_COURSE_SUCCESS,
+    course
+  };
+}
+
 export function loadCourses() {
   return function (dispatch) {
     return courseMock.getAllCourses()
       .then(courses => {
-        debugger;
         dispatch(loadCoursesSuccess(courses));
       })
       .catch(err => {
         throw (err);
+      });
+  };
+}
+
+export function saveCourse(course) {
+  return function (dispatch) {
+    return courseMock.saveCourse(course)
+      .then(savedCourse => {
+        course.id
+          ? dispatch(updateCourseSuccess(savedCourse))
+          : dispatch(createCourseSuccess(savedCourse));
+      }).catch(error => {
+        throw (error);
       });
   };
 }

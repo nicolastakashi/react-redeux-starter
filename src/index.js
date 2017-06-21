@@ -8,9 +8,11 @@ import { Provider } from 'react-redux';
 import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { loadCourses } from './redux/actions/course.actions';
+import { loadAuthors } from './redux/actions/author.actions';
 
 const store = configStore();
 store.dispatch(loadCourses());
+store.dispatch(loadAuthors());
 
 render(
   <Provider store={store}>
